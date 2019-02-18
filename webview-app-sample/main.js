@@ -67,14 +67,14 @@ function createMenu() {
           label: "go back",
           accelerator: "CmdOrCtrl+[",
           click() {
-            console.log("go back");
+            mainWindow.webContents.send("goBack");
           }
         },
         {
           label: "go forward",
           accelerator: "CmdOrCtrl+]",
           click() {
-            console.log("go forward");
+            mainWindow.webContents.send("goForward");
           }
         },
       ]
