@@ -5,9 +5,13 @@ const { ipcRenderer } = require("electron");
 const webview = document.querySelector("#webview");
 
 ipcRenderer.on("goBack", () => {
-    console.log("goBack");
+    if (webview.canGoBack()) {
+        webview.goBack();
+    }
 });
 
 ipcRenderer.on("goForward", () => {
-    console.log("goForward");
+    if (webview.canGoForward()) {
+        webview.goForward();
+    }
 });
