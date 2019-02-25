@@ -11,7 +11,7 @@ onload = () => {
 }
 
 function fetchPage(projectName, pageName) {
-    const url = `http://scrapbox.io/api/pages/${projectName}/${pageName}`;
+    const url = `https://scrapbox.io/api/pages/${projectName}/${pageName}`;
     fetch(url).then(res => {
         if (res.status === 200) {
             res.json().then(data => {
