@@ -1,6 +1,6 @@
 'use strict'
 
-import { app, BrowserWindow } from 'electron'
+import { app, BrowserWindow, Menu } from 'electron'
 
 /**
  * Set `__static` path to static files in production
@@ -27,6 +27,8 @@ function createWindow () {
 
   mainWindow.loadURL(winURL)
 
+  createMenu()
+
   mainWindow.on('closed', () => {
     mainWindow = null
   })
@@ -45,3 +47,24 @@ app.on('activate', () => {
     createWindow()
   }
 })
+
+function createMenu () {
+  console.log('createMenu')
+  const template = [
+    {
+      label: 'Edit',
+      submenu: [
+        { role: 'toggledevtools' },
+        {
+          label: 'add',
+          click () {
+            mainWindow.webContents.send('add', 'hoge')
+          }
+        }
+      ]
+    }
+  ]
+
+  const menu = Menu.buildFromTemplate(template)
+  Menu.setApplicationMenu(menu)
+}

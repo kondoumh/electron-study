@@ -44,6 +44,10 @@
         }
       })
 
+      this.$electron.ipcRenderer.on('add', (e, data) => {
+        this.addNode(data)
+      })
+
       const rect1 = this.addNode('ふなっしー')
       const rect2 = this.addNode('ヒャッハー')
       const rect3 = this.addNode('梨汁プシャー')
