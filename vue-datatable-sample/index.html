@@ -16,16 +16,15 @@
     <div id="app">
       <v-data-table
       :headers="headers"
-      :items="desserts"
+      :items="items"
       class="elevation-1"
     >
       <template v-slot:items="props">
         <td>{{ props.item.name }}</td>
-        <td class="text-xs-right">{{ props.item.calories }}</td>
-        <td class="text-xs-right">{{ props.item.fat }}</td>
-        <td class="text-xs-right">{{ props.item.carbs }}</td>
-        <td class="text-xs-right">{{ props.item.protein }}</td>
-        <td class="text-xs-right">{{ props.item.iron }}</td>
+        <td class="text-xs-right">{{ props.item.id }}</td>
+        <td class="text-xs-right">{{ props.item.first_name }}</td>
+        <td class="text-xs-right">{{ props.item.last_name }}</td>
+        <td class="text-xs-right">{{ props.item.avater }}</td>
       </template>
       <template v-slot:pageText="props">
         Lignes {{ props.pageStart }} - {{ props.pageStop }} / {{ props.itemsLength }}
