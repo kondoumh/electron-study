@@ -20,7 +20,7 @@ const app = new Vue({
     // totalItems: 0,
     items: [],
     pagination: {
-      descending: false,
+      descending: true,
       sortBy: 'updated'
     },
     headers: [
