@@ -20,7 +20,8 @@ const app = new Vue({
     // totalItems: 0,
     items: [],
     pagination: {
-      sortBy: 'Date'
+      descending: false,
+      sortBy: 'updated'
     },
     headers: [
       { text: 'pin', value: 'pin' },

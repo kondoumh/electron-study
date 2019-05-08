@@ -20,12 +20,11 @@
       class="elevation-1"
     >
       <template v-slot:items="props">
-        <td>{{ props.item.name }}</td>
-        <td class="text-xs-right">{{ props.item.pin }}</td>
-        <td class="text-xs-right">{{ props.item.views }}</td>
-        <td class="text-xs-right">{{ props.item.linked }}</td>
-        <td class="text-xs-right">{{ props.item.updated }}</td>
-        <td class="text-xs-right">{{ props.item.title }}</td>
+        <td class="text-xs-left">{{ props.item.pin }}</td>
+        <td class="text-xs-left">{{ props.item.views }}</td>
+        <td class="text-xs-left">{{ props.item.linked }}</td>
+        <td class="text-xs-left">{{ props.item.updated }}</td>
+        <td class="text-xs-left">{{ props.item.title }}</td>
       </template>
       <template v-slot:pageText="props">
         Lignes {{ props.pageStart }} - {{ props.pageStop }} / {{ props.itemsLength }}
