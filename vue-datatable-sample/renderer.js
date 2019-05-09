@@ -11,8 +11,15 @@ const app = new Vue({
     //this.$store.commit('saveTableData', this.items)
   },
   methods: {
-    nzDate: function (dt) {
-      return moment(dt).format('DD/MM/YYYY')
+    formatDate: function(timestamp) {
+      let date = new Date()
+      date.setTime(timestamp * 1000)
+      const options = {
+        year: "numeric", month: "numeric", day: "numeric",
+        hour: "numeric", minute: "numeric", second: "numeric",
+        hour12: false
+      }
+      return date.toLocaleString(navigator.language, options)
     }
   },
   data: () => ({
@@ -28,7 +35,8 @@ const app = new Vue({
       { text: 'views', value: 'views' },
       { text: 'linked', value: 'linked' },
       { text: 'updated', value: 'updated' },
-      { text: 'title', value: 'title' }
+      { text: 'title', value: 'title' },
+      { text: 'image', value: 'image', sortable: false }
     ]
   })
 })
