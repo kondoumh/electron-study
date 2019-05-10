@@ -31,12 +31,12 @@ const app = new Vue({
       sortBy: 'updated'
     },
     headers: [
-      { text: 'pin', value: 'pin' },
-      { text: 'views', value: 'views' },
-      { text: 'linked', value: 'linked' },
-      { text: 'updated', value: 'updated' },
-      { text: 'title', value: 'title' },
-      { text: 'image', value: 'image', sortable: false }
+      { text: 'pin', value: 'pin', width: '5%' },
+      { text: 'views', value: 'views', width: '10%' },
+      { text: 'linked', value: 'linked', width: '10%' },
+      { text: 'updated', value: 'updated', width: '25%' },
+      { text: 'title', value: 'title', width: '30%'},
+      { text: 'image', value: 'image', sortable: false, width: '25%' }
     ]
   })
 })
