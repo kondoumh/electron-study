@@ -13,8 +13,8 @@ const app = new Vue({
       const skip = (this.pagination.page - 1) * rowsPerPage
       let url = `https://scrapbox.io/api/pages/kondoumh?skip=${skip}&limit=10&sort=${this.pagination.sortBy}`
       const res = await axios.get(url)
-      this.items = await res.data.pages
-      this.totalPages = res.data.count
+      this.items = await res.data.pages // .filter(page => page.pin === 0)
+      this.totalPages = res.data.count // - res.data.pages.filter(page => page.pin !== 0).length
     },
     formatDate (timestamp) {
       let date = new Date()
