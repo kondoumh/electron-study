@@ -8,14 +8,15 @@ const app = new Vue({
     //this.$store.commit('saveTableData', this.items)
   },
   methods: {
-    async fetchData() {
+    async fetchData () {
       const rowsPerPage = this.pagination.rowsPerPage
       const skip = (this.pagination.page - 1) * rowsPerPage
-      const res = await axios.get(`https://scrapbox.io/api/pages/kondoumh?skip=${skip}&limit=25`)
+      let url = `https://scrapbox.io/api/pages/kondoumh?skip=${skip}&limit=10&sort=${this.pagination.sortBy}`
+      const res = await axios.get(url)
       this.items = await res.data.pages
       this.totalPages = res.data.count
     },
-    formatDate: function(timestamp) {
+    formatDate (timestamp) {
       let date = new Date()
       date.setTime(timestamp * 1000)
       const options = {
@@ -24,11 +25,15 @@ const app = new Vue({
         hour12: false
       }
       return date.toLocaleString(navigator.language, options)
+    },
+    updatePagination (pagination) {
+      console.log('update:pagination', pagination.sortBy)
     }
   },
   watch: {
     pagination: {
       handler() {
+        this.pagination.descending = false
         this.fetchData()
       }
     }
@@ -37,7 +42,9 @@ const app = new Vue({
     search: '',
     totalPages: 0,
     items: [],
-    pagination: {},
+    pagination: {
+      sortBy: 'updated'
+    },
     headers: [
       { text: 'pin', value: 'pin', sortable: false, width: '5%' },
       { text: 'views', value: 'views', width: '10%' },
