@@ -9,12 +9,11 @@ const app = new Vue({
   },
   methods: {
     async fetchData () {
-      const rowsPerPage = this.pagination.rowsPerPage
-      const skip = (this.pagination.page - 1) * rowsPerPage
-      let url = `https://scrapbox.io/api/pages/kondoumh?skip=${skip}&limit=10&sort=${this.pagination.sortBy}`
+      const skip = (this.pagination.page - 1) * this.pagination.rowsPerPage
+      let url = `https://scrapbox.io/api/pages/kondoumh?skip=${skip}&limit=${this.pagination.rowsPerPage}&sort=${this.pagination.sortBy}`
       const res = await axios.get(url)
       this.items = await res.data.pages // .filter(page => page.pin === 0)
-      this.totalPages = res.data.count // - res.data.pages.filter(page => page.pin !== 0).length
+      this.pagination.totalItems = res.data.count // - res.data.pages.filter(page => page.pin !== 0).length
     },
     formatDate (timestamp) {
       let date = new Date()
@@ -26,14 +25,14 @@ const app = new Vue({
       }
       return date.toLocaleString(navigator.language, options)
     },
-    updatePagination (pagination) {
-      console.log('update:pagination', pagination.sortBy)
+    input (page) {
+      this.fetchData()
     }
   },
   computed: {
-    pages () {
-      if (this.pagination.rowsPerPage == null || this.totalPages == null ) return 0
-      return Math.ceil(this.totalPages / this.pagination.rowsPerPage)
+    page () {
+      if (this.pagination.rowsPerPage == null || this.pagination.totalItems == null ) return 0
+      return Math.ceil(this.pagination.totalItems / this.pagination.rowsPerPage)
     }
   },
   watch: {
@@ -45,10 +44,11 @@ const app = new Vue({
     }
   },
   data: () => ({
-    totalPages: 0,
     items: [],
     pagination: {
-      sortBy: 'updated'
+      sortBy: 'updated',
+      rowsPerPage: 20,
+      totalItems: 0
     },
     headers: [
       { text: 'pin', value: 'pin', sortable: false, width: '5%' },

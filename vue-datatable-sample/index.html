@@ -19,11 +19,10 @@
       <v-data-table
       :headers="headers"
       :items="items"
+      hide-actions
       :pagination.sync="pagination"
-      :total-items="totalPages"
-      :rows-per-page-items="[10]"
+      :total-items="pagination.totalItems"
       class="elevation-1"
-      @update:pagination="updatePagination"
     >
       <template v-slot:items="props">
         <td class="text-xs-left">{{ props.item.pin != 0 ? "&#x2714;" : "" }}</td>
@@ -37,8 +36,8 @@
     <div class="text-xs-center pt-2">
       <v-pagination
         v-model="pagination.page"
-        :length="pages"
-        :total-visible="5"
+        :length="page"
+        @input="input"
       ></v-pagination>
     </div>
     <script>
