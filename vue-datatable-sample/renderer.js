@@ -30,16 +30,21 @@ const app = new Vue({
       console.log('update:pagination', pagination.sortBy)
     }
   },
+  computed: {
+    pages () {
+      if (this.pagination.rowsPerPage == null || this.totalPages == null ) return 0
+      return Math.ceil(this.totalPages / this.pagination.rowsPerPage)
+    }
+  },
   watch: {
     pagination: {
-      handler() {
+      handler () {
         this.pagination.descending = false
         this.fetchData()
       }
     }
   },
   data: () => ({
-    search: '',
     totalPages: 0,
     items: [],
     pagination: {
