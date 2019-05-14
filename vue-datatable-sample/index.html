@@ -29,7 +29,12 @@
         <td class="text-xs-left">{{ props.item.views }}</td>
         <td class="text-xs-left">{{ props.item.linked }}</td>
         <td class="text-xs-left">{{ formatDate(props.item.updated) }}</td>
-        <td class="text-xs-left">{{ props.item.title }}</td>
+        <td class="text-xs-left">
+          <a
+            :href="'https://scrapbox.io/kondoumh/'+ 'props.item.title'"
+            target="_blank"
+          >{{ props.item.title }}</a>
+        </td>
         <td><img :src="props.item.image" style="width: auto; height: 25px"></td>
       </template>
     </v-data-table>
