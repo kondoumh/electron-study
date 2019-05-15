@@ -45,7 +45,7 @@ const app = new Vue({
     ptojectName: '',
     pagination: {
       sortBy: 'updated',
-      rowsPerPage: 20,
+      rowsPerPage: 30,
       totalItems: 0
     },
     headers: [
