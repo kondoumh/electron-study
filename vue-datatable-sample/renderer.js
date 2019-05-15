@@ -1,16 +1,13 @@
-// This file is required by the index.html file and will
-// be executed in the renderer process for that window.
-// All of the Node.js APIs are available in this process.
 const app = new Vue({
   el: '#app',
   async mounted () {
+    this.projectName = 'kondoumh'
     this.fetchData()
-    //this.$store.commit('saveTableData', this.items)
   },
   methods: {
     async fetchData () {
       const skip = (this.pagination.page - 1) * this.pagination.rowsPerPage
-      let url = `https://scrapbox.io/api/pages/kondoumh?skip=${skip}&limit=${this.pagination.rowsPerPage}&sort=${this.pagination.sortBy}`
+      let url = `https://scrapbox.io/api/pages/${this.projectName}?skip=${skip}&limit=${this.pagination.rowsPerPage}&sort=${this.pagination.sortBy}`
       const res = await axios.get(url)
       this.items = await res.data.pages // .filter(page => page.pin === 0)
       this.pagination.totalItems = res.data.count // - res.data.pages.filter(page => page.pin !== 0).length
@@ -45,6 +42,7 @@ const app = new Vue({
   },
   data: () => ({
     items: [],
+    ptojectName: '',
     pagination: {
       sortBy: 'updated',
       rowsPerPage: 20,
