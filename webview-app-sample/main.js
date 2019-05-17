@@ -77,10 +77,25 @@ function createMenu() {
             mainWindow.webContents.send("goForward");
           }
         },
+        { role: "quit" }
       ]
     }
   ];
-
+  if (!app.isPackaged) {
+    template.unshift({
+      label: "Debug",
+      submenu: [
+        { role: "forceReload"},
+        { role: "toggledevtools" },
+        { 
+          label: "open devTools for WebView",
+          click () {
+            mainWindow.webContents.send("openDevTools");
+          }
+        }
+      ]
+    });
+  }
   const menu = Menu.buildFromTemplate(template);
   Menu.setApplicationMenu(menu);
 }
