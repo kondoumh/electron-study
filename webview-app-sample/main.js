@@ -77,6 +77,19 @@ function createMenu() {
             mainWindow.webContents.send("goForward");
           }
         },
+        {
+          label: "CheckBox Menu",
+          id: "checkboxMenu",
+          type: "checkbox",
+          click() {
+            const checked = Menu.getApplicationMenu().getMenuItemById("checkboxMenu").checked;
+            if (checked) {
+              mainWindow.webContents.send("check", "enable");
+            } else {
+              mainWindow.webContents.send("check", "disable");
+            }
+          }
+        },
         { role: "quit" }
       ]
     }

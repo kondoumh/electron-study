@@ -19,3 +19,7 @@ ipcRenderer.on("goForward", () => {
 ipcRenderer.on("openDevTools", () => {
   webview.openDevTools();
 });
+
+ipcRenderer.on("check", (sender, arg) => {
+  console.log(arg);
+});
