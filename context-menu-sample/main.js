@@ -1,5 +1,5 @@
 // Modules to control application life and create native browser window
-const {app, BrowserWindow} = require('electron')
+const {app, BrowserWindow, Menu} = require('electron')
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -12,7 +12,8 @@ function createWindow () {
     height: 600,
     webPreferences: {
       nodeIntegration: true,
-      spellcheck: true
+      spellcheck: true,
+      enableRemoteModule: true
     }
   })
 
@@ -29,6 +30,8 @@ function createWindow () {
     // when you should delete the corresponding element.
     mainWindow = null
   })
+
+  createMenu()
 }
 
 // This method will be called when Electron has finished
@@ -55,3 +58,18 @@ app.on('activate', function () {
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
+
+function createMenu() {
+  const template = [
+    {
+      label: "View",
+      submenu: [
+        { role: "toggledevtools" },
+        { role: "forceReload"},
+        { role: "quit" }
+      ]
+    }
+  ];
+  const menu = Menu.buildFromTemplate(template);
+  Menu.setApplicationMenu(menu);
+}
