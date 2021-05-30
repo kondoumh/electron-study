@@ -17,7 +17,9 @@
   "author": "GitHub",
   "license": "CC0-1.0",
   "devDependencies": {
-    "electron": "^9.0.3"
+    "electron": "^13.0.1"
   },
-  "dependencies": {}
+  "dependencies": {
+    "electron-context-menu": "^3.1.0"
+  }
 }
