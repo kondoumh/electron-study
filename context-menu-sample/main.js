@@ -5,7 +5,7 @@ const contextMenu = require('electron-context-menu');
 
 let mainWindow;
 
-function createWindow () {
+function createWindow() {
   // Create the browser window.
   mainWindow = new BrowserWindow({
     width: 800,
@@ -47,19 +47,19 @@ app.on('window-all-closed', function () {
 // code. You can also put them in separate files and require them here.
 
 contextMenu({
-	prepend: (defaultActions, parameters, mainWindow) => [
-		{
-			label: 'Rainbow',
-			// Only show it when right-clicking images
-			visible: parameters.mediaType === 'image'
-		},
-		{
-			label: 'Search Google for “{selection}”',
-			// Only show it when right-clicking text
-			visible: parameters.selectionText.trim().length > 0,
-			click: () => {
-				shell.openExternal(`https://google.com/search?q=${encodeURIComponent(parameters.selectionText)}`);
-			}
-		}
-	]
+  prepend: (defaultActions, parameters, mainWindow) => [
+    {
+      label: 'Rainbow',
+      // Only show it when right-clicking images
+      visible: parameters.mediaType === 'image'
+    },
+    {
+      label: 'Search Google for “{selection}”',
+      // Only show it when right-clicking text
+      visible: parameters.selectionText.trim().length > 0,
+      click: () => {
+        shell.openExternal(`https://google.com/search?q=${encodeURIComponent(parameters.selectionText)}`);
+      }
+    }
+  ]
 });
