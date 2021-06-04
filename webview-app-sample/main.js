@@ -1,4 +1,4 @@
-const { app, BrowserWindow, Menu, webviewTag } = require('electron');
+const { app, BrowserWindow, Menu, ipcMain } = require('electron');
 const contextMenu = require('electron-context-menu');
 
 let mainWindow;
@@ -14,7 +14,7 @@ function createWindow() {
     }
   });
 
-  mainWindow.loadFile('index.html');
+  mainWindow.loadURL('https://github.com');
 
   createMenu();
 
@@ -42,19 +42,22 @@ function createMenu() {
     {
       label: "View",
       submenu: [
-        { role: "toggledevtools" },
         {
           label: "go back",
           accelerator: "CmdOrCtrl+[",
           click() {
-            mainWindow.webContents.send("goBack");
+            if (mainWindow.webContents.canGoBack()) {
+              mainWindow.webContents.goBack();
+            }
           }
         },
         {
           label: "go forward",
           accelerator: "CmdOrCtrl+]",
           click() {
-            mainWindow.webContents.send("goForward");
+            if (mainWindow.webContents.canGoForward()) {
+              mainWindow.webContents.goForward();
+            }
           }
         },
         {
@@ -94,7 +97,6 @@ function createMenu() {
 }
 
 contextMenu({
-  window: webviewTag,
   prepend: (defaultActions, parameters, mainWindow) => [
     {
       label: 'Rainbow',
