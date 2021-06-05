@@ -23,5 +23,5 @@ function fetchPage(blogName, apiKey) {
         }
     }).catch(err => {
         console.log(err);
-    })
+    });
 }
