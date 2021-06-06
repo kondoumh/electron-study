@@ -1,5 +1,4 @@
 const { app, BrowserWindow, Menu, ipcMain } = require('electron');
-const contextMenu = require('electron-context-menu');
 
 let mainWindow;
 
@@ -14,8 +13,7 @@ function createWindow() {
     }
   });
 
-  mainWindow.loadURL('https://github.com');
-
+  mainWindow.loadFile('index.html');
   createMenu();
 
   mainWindow.on('closed', function () {
@@ -29,13 +27,13 @@ app.on('window-all-closed', function () {
   if (process.platform !== 'darwin') {
     app.quit();
   }
-})
+});
 
 app.on('activate', function () {
   if (mainWindow === null) {
     createWindow();
   }
-})
+});
 
 function createMenu() {
   const template = [
@@ -46,18 +44,14 @@ function createMenu() {
           label: "go back",
           accelerator: "CmdOrCtrl+[",
           click() {
-            if (mainWindow.webContents.canGoBack()) {
-              mainWindow.webContents.goBack();
-            }
+            mainWindow.webContents.send("goBack");
           }
         },
         {
           label: "go forward",
           accelerator: "CmdOrCtrl+]",
           click() {
-            if (mainWindow.webContents.canGoForward()) {
-              mainWindow.webContents.goForward();
-            }
+            mainWindow.webContents.send("goForward");
           }
         },
         {
@@ -95,21 +89,3 @@ function createMenu() {
   const menu = Menu.buildFromTemplate(template);
   Menu.setApplicationMenu(menu);
 }
-
-contextMenu({
-  prepend: (defaultActions, parameters, mainWindow) => [
-    {
-      label: 'Rainbow',
-      // Only show it when right-clicking images
-      visible: parameters.mediaType === 'image'
-    },
-    {
-      label: 'Search Google for “{selection}”',
-      // Only show it when right-clicking text
-      visible: parameters.selectionText.trim().length > 0,
-      click: () => {
-        shell.openExternal(`https://google.com/search?q=${encodeURIComponent(parameters.selectionText)}`);
-      }
-    }
-  ]
-});
