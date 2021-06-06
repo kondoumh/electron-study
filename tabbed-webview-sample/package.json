@@ -1,0 +1,18 @@
+{
+  "name": "tabbed-webview-sample",
+  "version": "1.0.0",
+  "description": "WebView examle app",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "repository": "https://github.com/kondoumh/electron-study",
+  "author": "kondoumh",
+  "devDependencies": {
+    "electron": "^13.0.1"
+  },
+  "dependencies": {
+    "electron-context-menu": "^3.1.0",
+    "electron-tabs": "^0.15.0"
+  }
+}
