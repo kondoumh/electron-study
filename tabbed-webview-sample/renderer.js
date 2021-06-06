@@ -7,14 +7,19 @@ let tabGroup = new TabGroup({
   }
 });
 
-tabGroup.addTab({
-  title: 'kondoumh',
-  src: 'https://kondoumh.com',
-});
+addToTab(tabGroup, 'kondoumh', 'https://kondoumh.com');
+addToTab(tabGroup, "Scrapbox", "https://scrapbox.io");
 
-tabGroup.addTab({
-  title: "Scrapbox",
-  src: "https://scrapbox.io",
-  visible: true,
-  active: true
-});
+function addToTab(tabGroup, title, url) {
+  tabGroup.addTab({
+    title: title,
+    src: url,
+    visible: true,
+    active: true,
+    ready: tab => {
+      tab.on("webview-ready", tab => {
+        console.log(tab.title);
+      })
+    }
+  });
+}
