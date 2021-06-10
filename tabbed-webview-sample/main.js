@@ -1,4 +1,4 @@
-const { app, BrowserWindow, Menu, ipcMain } = require('electron');
+const { app, BrowserWindow, Menu, ipcMain, webContents } = require('electron');
 const contextMenu = require('electron-context-menu');
 
 let mainWindow;
@@ -64,20 +64,29 @@ function createMenu() {
   Menu.setApplicationMenu(menu);
 }
 
-contextMenu({
-  prepend: (defaultActions, parameters, mainWindow) => [
-    {
-      label: 'Rainbow',
-      // Only show it when right-clicking images
-      visible: parameters.mediaType === 'image'
-    },
-    {
-      label: 'Search Google for “{selection}”',
-      // Only show it when right-clicking text
-      visible: parameters.selectionText.trim().length > 0,
-      click: () => {
-        shell.openExternal(`https://google.com/search?q=${encodeURIComponent(parameters.selectionText)}`);
+ipcMain.on("tab-ready", (e, url) => {
+  const contents = webContents.getAllWebContents().filter(c => !c.getURL().startsWith('file://'));
+  const idx = contents.findIndex(c => c.getURL() === url);
+  console.log(idx);
+  console.log(contents[idx].getURL());
+  content = contents[idx];
+  contextMenu({
+    //window: content,
+    prepend: (defaultActions, parameters, mainWindow) => [
+      {
+        label: 'Rainbow',
+        // Only show it when right-clicking images
+        visible: parameters.mediaType === 'image'
+      },
+      {
+        label: 'Search Google for “{selection}”',
+        // Only show it when right-clicking text
+        visible: parameters.selectionText.trim().length > 0,
+        click: () => {
+          shell.openExternal(`https://google.com/search?q=${encodeURIComponent(parameters.selectionText)}`);
+        }
       }
-    }
-  ]
-});
+    ]
+  });
+})
+

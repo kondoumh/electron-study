@@ -9,6 +9,8 @@ let tabGroup = new TabGroup({
 
 addToTab(tabGroup, 'kondoumh', 'https://kondoumh.com');
 addToTab(tabGroup, "Scrapbox", "https://scrapbox.io");
+addToTab(tabGroup, "Scrapbox/kondoumh", "https://scrapbox.io/kondoumh/");
+
 
 function addToTab(tabGroup, title, url) {
   tabGroup.addTab({
@@ -19,6 +21,7 @@ function addToTab(tabGroup, title, url) {
     ready: tab => {
       tab.on("webview-ready", tab => {
         console.log(tab.title);
+        ipcRenderer.send("tab-ready", tab.webview.getURL());
       })
     }
   });
