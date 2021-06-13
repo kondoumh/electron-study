@@ -66,12 +66,9 @@ function createMenu() {
 
 ipcMain.on("tab-ready", (e, url) => {
   const contents = webContents.getAllWebContents().filter(c => !c.getURL().startsWith('file://'));
-  const idx = contents.findIndex(c => c.getURL() === url);
-  console.log(idx);
-  console.log(contents[idx].getURL());
-  content = contents[idx];
+  const content = contents.find(c => c.getURL() === url);
+  console.log(content.getURL());
   contextMenu({
-    //window: content,
     prepend: (defaultActions, parameters, mainWindow) => [
       {
         label: 'Rainbow',
