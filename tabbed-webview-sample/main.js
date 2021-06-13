@@ -84,4 +84,3 @@ ipcMain.on("tab-ready", (e, url) => {
     ]
   });
 })
-
