@@ -69,6 +69,7 @@ ipcMain.on("tab-ready", (e, url) => {
   const content = contents.find(c => c.getURL() === url);
   console.log(content.getURL());
   contextMenu({
+    window: content,
     prepend: (defaultActions, parameters, mainWindow) => [
       {
         label: 'Rainbow',
