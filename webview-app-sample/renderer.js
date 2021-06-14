@@ -20,3 +20,7 @@ ipcRenderer.on("openDevTools", () => {
 ipcRenderer.on("check", (sender, arg) => {
   console.log(arg);
 });
+
+webview.addEventListener("dom-ready", e => {
+  ipcRenderer.send("webview-ready", webview.getURL());
+});

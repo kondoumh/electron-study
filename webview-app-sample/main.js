@@ -1,4 +1,5 @@
-const { app, BrowserWindow, Menu, ipcMain } = require('electron');
+const { app, BrowserWindow, Menu, ipcMain, webContents, webviewTag } = require('electron');
+const contextMenu = require('electron-context-menu');
 
 let mainWindow;
 
@@ -89,3 +90,25 @@ function createMenu() {
   const menu = Menu.buildFromTemplate(template);
   Menu.setApplicationMenu(menu);
 }
+
+ipcMain.on("webview-ready", (e, url) => {
+  const contents = webContents.getAllWebContents().filter(c => !c.getURL().startsWith('file://'));
+  const content = contents.find(c => c.getURL() === url);
+  contextMenu({
+    window: content,
+    prepend: (defaultActions, parameters, mainWindow) => [
+      {
+        label: 'Rainbow',
+        visible: parameters.mediaType === 'image'
+      },
+      {
+        label: 'Search Google for “{selection}”',
+        visible: parameters.selectionText.trim().length > 0,
+        click: () => {
+          shell.openExternal(`https://google.com/search?q=${encodeURIComponent(parameters.selectionText)}`);
+        }
+      }
+    ]
+  });
+});
+
