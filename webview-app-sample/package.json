@@ -10,5 +10,8 @@
   "author": "kondoumh",
   "devDependencies": {
     "electron": "^13.0.1"
+  },
+  "dependencies": {
+    "electron-context-menu": "^3.1.0"
   }
 }
