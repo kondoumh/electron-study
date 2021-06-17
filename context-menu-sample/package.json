@@ -12,6 +12,6 @@
     "electron": "^13.0.1"
   },
   "dependencies": {
-    "electron-context-menu": "^3.1.0"
+    "electron-context-menu": "^3.1.1"
   }
 }
