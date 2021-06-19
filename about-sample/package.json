@@ -1,0 +1,17 @@
+{
+  "name": "about-sample",
+  "version": "1.0.0",
+  "description": "About window example",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "repository": "https://github.com/kondoumh/electron-study",
+  "author": "kondoumh",
+  "devDependencies": {
+    "electron": "^13.0.1"
+  },
+  "dependencies": {
+    "about-window": "^1.14.0"
+  }
+}
