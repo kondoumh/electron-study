@@ -24,3 +24,13 @@ ipcRenderer.on("check", (sender, arg) => {
 webview.addEventListener("dom-ready", e => {
   ipcRenderer.send("webview-ready", webview.getURL());
 });
+
+webview.addEventListener("ipc-message", (e, arg) => {
+  if (e.channel === "getTitle") {
+     console.log(e.args[0]);
+  }
+});
+
+webview.addEventListener("did-finish-load", () => {
+  webview.send("getTitle");
+});
