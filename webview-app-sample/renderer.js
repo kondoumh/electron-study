@@ -21,11 +21,11 @@ ipcRenderer.on("check", (sender, arg) => {
   console.log(arg);
 });
 
-webview.addEventListener("dom-ready", e => {
+webview.addEventListener("dom-ready", () => {
   ipcRenderer.send("webview-ready", webview.getURL());
 });
 
-webview.addEventListener("ipc-message", (e, arg) => {
+webview.addEventListener("ipc-message", e => {
   if (e.channel === "getTitle") {
      console.log(e.args[0]);
   }
