@@ -1,0 +1,14 @@
+{
+  "name": "webview-ipc-sample",
+  "version": "1.0.0",
+  "description": "WebView ipc examle app",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "repository": "https://github.com/kondoumh/electron-study",
+  "author": "kondoumh",
+  "devDependencies": {
+    "electron": "^15.0.0"
+  }
+}
