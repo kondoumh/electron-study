@@ -14,16 +14,19 @@ function createWindow () {
   view1 = new BrowserView();
   mainWindow.addBrowserView(view1);
   view1.setBounds({ x: 0, y: 0, width: 800, height: 600 });
+  view1.setAutoResize({width: true, height: true});
   view1.webContents.loadURL('https://electronjs.org');
 
   view2 = new BrowserView();
   mainWindow.addBrowserView(view2);
   view2.setBounds({ x: 0, y: 0, width: 800, height: 600 });
+  view2.setAutoResize({width: true, height: true});
   view2.webContents.loadURL('https://www.google.co.jp');
 
   view3 = new BrowserView();
   mainWindow.addBrowserView(view3);
   view3.setBounds({ x: 0, y: 0, width: 800, height: 600 });
+  view3.setAutoResize({width: true, height: true});
   view3.webContents.loadURL('https://scrapbox.io/kondoumh');
 
   createMenu();
