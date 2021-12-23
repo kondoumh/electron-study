@@ -1,9 +1,6 @@
 const {app, BrowserView, BrowserWindow, Menu} = require('electron');
 
 let mainWindow;
-let view1;
-let view2;
-let view3;
 
 function createWindow () {
   mainWindow = new BrowserWindow({
@@ -11,9 +8,9 @@ function createWindow () {
     height: 600
   });
 
-  view1 = setupView(mainWindow, 'https://electronjs.org');
-  view2 = setupView(mainWindow, 'https://www.google.co.jp');
-  view3 = setupView(mainWindow, 'https://scrapbox.io/kondoumh');
+  setupView(mainWindow, 'https://electronjs.org');
+  setupView(mainWindow, 'https://www.google.co.jp');
+  setupView(mainWindow, 'https://scrapbox.io/kondoumh');
 
   createMenu();
 }
@@ -24,7 +21,6 @@ function setupView(win, url) {
   view.setBounds({ x: 0, y: 0, width: 800, height: 600 });
   view.setAutoResize({width: true, height: true});
   view.webContents.loadURL(url);
-  return view;
 }
 
 app.whenReady().then(() => {
@@ -47,19 +43,19 @@ function createMenu() {
         {
           label: "site1",
           click() {
-            mainWindow.setTopBrowserView(view1);
+            mainWindow.setTopBrowserView(mainWindow.getBrowserViews()[0]);
           }
         },
         {
           label: "site2",
           click() {
-            mainWindow.setTopBrowserView(view2);
+            mainWindow.setTopBrowserView(mainWindow.getBrowserViews()[1]);
           }
         },
         {
           label: "site3",
           click() {
-            mainWindow.setTopBrowserView(view3);
+            mainWindow.setTopBrowserView(mainWindow.getBrowserViews()[2]);
           }
         },
         { role: "quit" }
