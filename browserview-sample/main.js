@@ -11,25 +11,20 @@ function createWindow () {
     height: 600
   });
 
-  view1 = new BrowserView();
-  mainWindow.addBrowserView(view1);
-  setupView(view1, 'https://electronjs.org');
-
-  view2 = new BrowserView();
-  mainWindow.addBrowserView(view2);
-  setupView(view2, 'https://www.google.co.jp');
-
-  view3 = new BrowserView();
-  mainWindow.addBrowserView(view3);
-  setupView(view3, 'https://scrapbox.io/kondoumh');
+  view1 = setupView(mainWindow, 'https://electronjs.org');
+  view2 = setupView(mainWindow, 'https://www.google.co.jp');
+  view3 = setupView(mainWindow, 'https://scrapbox.io/kondoumh');
 
   createMenu();
 }
 
-function setupView(view, url) {
+function setupView(win, url) {
+  const view = new BrowserView();
+  win.addBrowserView(view);
   view.setBounds({ x: 0, y: 0, width: 800, height: 600 });
   view.setAutoResize({width: true, height: true});
   view.webContents.loadURL(url);
+  return view;
 }
 
 app.whenReady().then(() => {
