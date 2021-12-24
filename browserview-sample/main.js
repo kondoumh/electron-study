@@ -12,15 +12,27 @@ function createWindow () {
   setupView(mainWindow, 'https://www.google.co.jp');
   setupView(mainWindow, 'https://scrapbox.io/kondoumh');
 
+  ['resize'].forEach(e => {
+    mainWindow.on(e, () => {
+      mainWindow.getBrowserViews().forEach(view => {
+        resizeView(view);
+      })
+    });
+  });
+
   createMenu();
 }
 
 function setupView(win, url) {
   const view = new BrowserView();
   win.addBrowserView(view);
-  view.setBounds({ x: 0, y: 0, width: 800, height: 600 });
-  view.setAutoResize({width: true, height: true});
+  resizeView(view);
   view.webContents.loadURL(url);
+}
+
+function resizeView(view) {
+  const bound = mainWindow.getBounds();
+  view.setBounds({ x: 0, y: 30, width: bound.width, height: bound.height - 30 });
 }
 
 app.whenReady().then(() => {
