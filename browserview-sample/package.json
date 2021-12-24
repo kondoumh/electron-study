@@ -6,10 +6,8 @@
   "scripts": {
     "start": "electron ."
   },
-  "repository": "https://github.com/kondoumh/electron-study/electron-quick-start",
-  "keywords": [],
+  "repository": "https://github.com/kondoumh/electron-study/browserview-sample",
   "author": "kondoumh",
-  "license": "CC0-1.0",
   "devDependencies": {
     "electron": "^16.0.5"
   }
