@@ -5,9 +5,7 @@ let mainWindow;
 function createWindow() {
   mainWindow = new BrowserWindow({
     webPreferences: {
-      nodeIntegration: true,
-      webviewTag: true,
-      contextIsolation: false
+      webviewTag: true
     }
   });
 
