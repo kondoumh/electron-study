@@ -1,36 +1,31 @@
-const { ipcRenderer } = require("electron");
-const webview = document.querySelector("#webview");
+const webview = document.querySelector('#webview');
 
-ipcRenderer.on("goBack", () => {
+window.api.goBack(() => {
   if (webview.canGoBack()) {
     webview.goBack();
   }
 });
 
-ipcRenderer.on("goForward", () => {
+window.api.goForward(() => {
   if (webview.canGoForward()) {
     webview.goForward();
   }
 });
 
-ipcRenderer.on("openDevTools", () => {
+window.api.openDevTools(() => {
   webview.openDevTools();
 });
 
-ipcRenderer.on("check", (sender, arg) => {
-  console.log(arg);
+webview.addEventListener('dom-ready', () => {
+  api.notifyReady(webview.getURL());
 });
 
-webview.addEventListener("dom-ready", () => {
-  ipcRenderer.send("webview-ready", webview.getURL());
-});
-
-webview.addEventListener("ipc-message", e => {
-  if (e.channel === "getTitle") {
+webview.addEventListener('ipc-message', e => {
+  if (e.channel === 'getTitle') {
      console.log(e.args[0]);
   }
 });
 
-webview.addEventListener("did-finish-load", () => {
-  webview.send("getTitle");
+webview.addEventListener('did-finish-load', () => {
+  webview.send('getTitle');
 });
