@@ -1,4 +1,4 @@
-const { contextBridge, ipcRenderer } = require('electron');
+const { contextBridge } = require('electron');
 
 contextBridge.exposeInMainWorld(
   'api', {
@@ -8,9 +8,9 @@ contextBridge.exposeInMainWorld(
         if (res.status === 200) {
           res.json().then(data => {
             data.lines.forEach(element => {
-              document.querySelector("#text").innerHTML += `${element.text}<br>`;
+              document.querySelector('#text').innerHTML += `${element.text}<br>`;
             });
-            document.querySelector("#image").src = data.image;
+            document.querySelector('#image').src = data.image;
           })
         } else {
           console.log(res.status);
