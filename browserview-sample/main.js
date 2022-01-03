@@ -1,11 +1,15 @@
-const {app, BrowserView, BrowserWindow, Menu} = require('electron');
+const { app, BrowserView, BrowserWindow, Menu, ipcMain } = require('electron');
+const path = require('path');
 
 let mainWindow;
 
 function createWindow () {
   mainWindow = new BrowserWindow({
     width: 800,
-    height: 600
+    height: 600,
+    webPreferences: {
+      preload: path.join(__dirname, 'preload.js')
+    }
   });
   setupView(mainWindow, 'https://electronjs.org');
   setupView(mainWindow, 'https://www.google.co.jp');
@@ -28,14 +32,6 @@ function setupView(win, url) {
   win.addBrowserView(view);
   resizeView(view, 1);
   view.webContents.loadURL(url);
-}
-
-function setupTabBar(win) {
-  const view = new BrowserView();
-  win.addBrowserView(view);
-  const bound = mainWindow.getBounds();
-  view.setBounds({ x: 0, y: 0, width: bound.width, height: 30 });
-  view.webContents.loadURL(`file://${__dirname}/tabbar.html`);
 }
 
 function resizeView(view) {
@@ -61,21 +57,9 @@ function createMenu() {
       label: "View",
       submenu: [
         {
-          label: "site1",
+          label: "open dev tool",
           click() {
-            mainWindow.setTopBrowserView(mainWindow.getBrowserViews()[0]);
-          }
-        },
-        {
-          label: "site2",
-          click() {
-            mainWindow.setTopBrowserView(mainWindow.getBrowserViews()[1]);
-          }
-        },
-        {
-          label: "site3",
-          click() {
-            mainWindow.setTopBrowserView(mainWindow.getBrowserViews()[2]);
+            mainWindow.webContents.openDevTools({ mode: 'detach' });
           }
         },
         { role: "quit" }
@@ -86,17 +70,22 @@ function createMenu() {
     template.unshift({
       label: "Debug",
       submenu: [
-        { role: "forceReload" },
-        { role: "toggledevtools" },
-        {
-          label: "open devTools for WebView",
-          click() {
-            mainWindow.webContents.send("openDevTools");
-          }
-        }
+        { role: "forceReload" }
       ]
     });
   }
   const menu = Menu.buildFromTemplate(template);
   Menu.setApplicationMenu(menu);
 }
+
+ipcMain.on('view1', e => {
+  mainWindow.setTopBrowserView(mainWindow.getBrowserViews()[0]);
+});
+
+ipcMain.on('view2', e => {
+  mainWindow.setTopBrowserView(mainWindow.getBrowserViews()[1]);
+});
+
+ipcMain.on('view3', e => {
+  mainWindow.setTopBrowserView(mainWindow.getBrowserViews()[2]);
+});
