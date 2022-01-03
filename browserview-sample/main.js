@@ -13,7 +13,8 @@ function createWindow () {
   });
   setupView(mainWindow, 'https://electronjs.org');
   setupView(mainWindow, 'https://www.google.co.jp');
-  setupView(mainWindow, 'https://scrapbox.io/kondoumh');
+  //setupView(mainWindow, 'https://scrapbox.io/kondoumh');
+  setupViewLocal(mainWindow, 'local.html');
   mainWindow.loadFile('tabbar.html');
 
   ['resize'].forEach(e => {
@@ -30,8 +31,21 @@ function createWindow () {
 function setupView(win, url) {
   const view = new BrowserView();
   win.addBrowserView(view);
-  resizeView(view, 1);
+  resizeView(view);
   view.webContents.loadURL(url);
+}
+
+function setupViewLocal(win, file) {
+  const view = new BrowserView({
+    webPreferences: {
+      preload: path.join(__dirname, 'preload.js')
+    }
+  });
+  win.addBrowserView(view);
+  resizeView(view);
+  view.webContents.loadFile(file);
+  view.setBackgroundColor('white');
+  view.webContents.openDevTools({ mode: 'detach' });
 }
 
 function resizeView(view) {
@@ -89,3 +103,7 @@ ipcMain.on('view2', e => {
 ipcMain.on('view3', e => {
   mainWindow.setTopBrowserView(mainWindow.getBrowserViews()[2]);
 });
+
+ipcMain.on('hoge', e => {
+  console.log('from local.js');
+})
