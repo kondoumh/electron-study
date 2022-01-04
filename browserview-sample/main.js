@@ -90,15 +90,15 @@ function createMenu() {
   Menu.setApplicationMenu(menu);
 }
 
-ipcMain.on('tab1', e => {
+ipcMain.handle('tab1', e => {
   mainWindow.setTopBrowserView(mainWindow.getBrowserViews()[0]);
 });
 
-ipcMain.on('tab2', e => {
+ipcMain.handle('tab2', e => {
   mainWindow.setTopBrowserView(mainWindow.getBrowserViews()[1]);
 });
 
-ipcMain.on('switch-to-electronjs', e => {
+ipcMain.handle('switch-to-electronjs', e => {
   console.log('from local.js');
   mainWindow.setTopBrowserView(mainWindow.getBrowserViews()[0]);
 });

@@ -2,10 +2,10 @@ const { contextBridge, ipcRenderer } = require('electron');
 
 contextBridge.exposeInMainWorld(
   'api', {
-    tab1: () => ipcRenderer.send('tab1'),
-    tab2: () => ipcRenderer.send('tab2'),
+    tab1: () => ipcRenderer.invoke('tab1'),
+    tab2: () => ipcRenderer.invoke('tab2'),
     switchPage: () => {
-      ipcRenderer.send('switch-to-electronjs');
+      ipcRenderer.invoke('switch-to-electronjs');
       return 'fuga';
     }
   }
