@@ -12,8 +12,6 @@ function createWindow () {
     }
   });
   setupView(mainWindow, 'https://electronjs.org');
-  setupView(mainWindow, 'https://www.google.co.jp');
-  //setupView(mainWindow, 'https://scrapbox.io/kondoumh');
   setupViewLocal(mainWindow, 'local.html');
   mainWindow.loadFile('tabbar.html');
 
@@ -45,7 +43,7 @@ function setupViewLocal(win, file) {
   resizeView(view);
   view.webContents.loadFile(file);
   view.setBackgroundColor('white');
-  view.webContents.openDevTools({ mode: 'detach' });
+  // view.webContents.openDevTools({ mode: 'detach' });
 }
 
 function resizeView(view) {
@@ -68,23 +66,23 @@ app.on('window-all-closed', function () {
 function createMenu() {
   const template = [
     {
-      label: "View",
+      label: 'View',
       submenu: [
         {
-          label: "open dev tool",
+          label: 'open dev tool',
           click() {
             mainWindow.webContents.openDevTools({ mode: 'detach' });
           }
         },
-        { role: "quit" }
+        { role: 'quit' }
       ]
     }
   ];
   if (!app.isPackaged) {
     template.unshift({
-      label: "Debug",
+      label: 'Debug',
       submenu: [
-        { role: "forceReload" }
+        { role: 'forceReload' }
       ]
     });
   }
@@ -92,18 +90,15 @@ function createMenu() {
   Menu.setApplicationMenu(menu);
 }
 
-ipcMain.on('view1', e => {
+ipcMain.on('tab1', e => {
   mainWindow.setTopBrowserView(mainWindow.getBrowserViews()[0]);
 });
 
-ipcMain.on('view2', e => {
+ipcMain.on('tab2', e => {
   mainWindow.setTopBrowserView(mainWindow.getBrowserViews()[1]);
 });
 
-ipcMain.on('view3', e => {
-  mainWindow.setTopBrowserView(mainWindow.getBrowserViews()[2]);
-});
-
-ipcMain.on('hoge', e => {
+ipcMain.on('switch-to-electronjs', e => {
   console.log('from local.js');
-})
+  mainWindow.setTopBrowserView(mainWindow.getBrowserViews()[0]);
+});

@@ -1,11 +1,8 @@
 onload = () => {
-  document.querySelector('#view1').addEventListener('click', e => {
-    window.api.view1();
+  document.querySelector('#tab1').addEventListener('click', e => {
+    window.api.tab1();
   });
-  document.querySelector('#view2').addEventListener('click', e => {
-    window.api.view2();
-  });
-  document.querySelector('#view3').addEventListener('click', e => {
-    window.api.view3();
+  document.querySelector('#tab2').addEventListener('click', e => {
+    window.api.tab2();
   });
 }
