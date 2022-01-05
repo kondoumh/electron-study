@@ -11,14 +11,14 @@ function createWindow () {
       preload: path.join(__dirname, 'preload.js')
     }
   });
-  setupView(mainWindow, 'https://electronjs.org');
-  setupViewLocal(mainWindow, 'local.html');
+  setupView('https://electronjs.org');
+  setupViewLocal('local.html');
   mainWindow.loadFile('tabbar.html');
 
   ['resize'].forEach(e => {
     mainWindow.on(e, () => {
-      mainWindow.getBrowserViews().forEach((view, index) => {
-        resizeView(view, index);
+      mainWindow.getBrowserViews().forEach((view) => {
+        resizeView(view);
       })
     });
   });
@@ -26,20 +26,20 @@ function createWindow () {
   createMenu();
 }
 
-function setupView(win, url) {
+function setupView(url) {
   const view = new BrowserView();
-  win.addBrowserView(view);
+  mainWindow.addBrowserView(view);
   resizeView(view);
   view.webContents.loadURL(url);
 }
 
-function setupViewLocal(win, file) {
+function setupViewLocal(file) {
   const view = new BrowserView({
     webPreferences: {
       preload: path.join(__dirname, 'preload.js')
     }
   });
-  win.addBrowserView(view);
+  mainWindow.addBrowserView(view);
   resizeView(view);
   view.webContents.loadFile(file);
   view.setBackgroundColor('white');
