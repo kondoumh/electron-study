@@ -9,6 +9,6 @@
   "repository": "https://github.com/kondoumh/electron-study",
   "author": "kondoumh",
   "devDependencies": {
-    "electron": "^16.2.6"
+    "electron": "^18.3.7"
   }
 }
