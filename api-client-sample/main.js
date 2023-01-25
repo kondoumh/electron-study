@@ -1,5 +1,6 @@
-const {app, BrowserWindow} = require('electron');
+const {app, BrowserWindow, ipcMain} = require('electron');
 const path = require('path');
+const fetch  = require('electron-fetch').default;
 
 let mainWindow;
 
@@ -32,3 +33,21 @@ app.on('activate', function () {
     createWindow();
   }
 });
+
+ipcMain.handle('fetch-pagee', async (e, projectName, pageName) => {
+  const data = await fetchPage(projectName, pageName);
+  return data;
+});
+
+async function fetchPage(projectName, pageName) {
+  const url = `https://scrapbox.io/api/pages/${projectName}/${pageName}`;
+  let data
+  const res = await fetch(url).catch(error => {
+    console.error(error);
+    return data;
+  });
+  if (res.status === 200) {
+    data = await res.json();
+  }
+  return data;
+}

@@ -9,6 +9,9 @@
   "repository": "https://github.com/kondoumh/electron-study",
   "author": "kondoumh",
   "devDependencies": {
-    "electron": "^18.3.7"
+    "electron": "^22.0.3"
+  },
+  "dependencies": {
+    "electron-fetch": "^1.9.1"
   }
 }
