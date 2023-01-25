@@ -48,7 +48,7 @@ function setupViewLocal(file) {
 
 function resizeView(view) {
   const bound = mainWindow.getBounds();
-  view.setBounds({ x: 0, y: 30, width: bound.width, height: bound.height - 30 });
+  view.setBounds({ x: 0, y: 80, width: bound.width, height: bound.height - 80 });
 }
 
 app.whenReady().then(() => {
