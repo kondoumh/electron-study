@@ -1,5 +1,6 @@
-import { app, shell, BrowserWindow } from 'electron'
+import { app, shell, BrowserWindow, ipcMain, dialog } from 'electron'
 import { join } from 'path'
+import * as fs from 'node:fs/promises'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
 
@@ -69,3 +70,17 @@ app.on('window-all-closed', () => {
 
 // In this file you can include the rest of your app"s specific main process
 // code. You can also put them in separate files and require them here.
+
+ipcMain.handle('export-to-svg', async (event, project, data) => {
+  const win = BrowserWindow.getFocusedWindow();
+  const result = await dialog.showSaveDialog(
+    win, {
+      title: 'Export to SVG',
+      defaultPath: `${project}.svg`,
+      filters: [ { name: 'SVG', extensions: ['svg'] }, ],
+    },
+  );
+  if (!result.canceled) {
+    await fs.writeFile(result.filePath, data);
+  }
+});

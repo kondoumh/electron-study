@@ -1,7 +1,7 @@
 <template>
   <div>
-    <Header @projectChanged="switchProject" />
-    <Graph v-bind:project="project" />
+    <Header @project-changed="switchProject" @export-svg="exportToSvg" />
+    <Graph ref="graph" v-bind:project="project" />
   </div>
 </template>
 
@@ -13,6 +13,12 @@ const project = ref('help-jp');
 
 const switchProject = value => {
   project.value = value;
+}
+
+const graph = ref(null);
+
+const exportToSvg = () => {
+  graph.value.exportToSvg(project.value);
 }
 </script>
 

@@ -83,6 +83,13 @@ const fetchData = async () => {
   graphData.value = await res.json();
 };
 
+const exportToSvg = async project => {
+  const svgContainer = d3.select('svg')
+                          .attr('xmlns','http://www.w3.org/2000/svg')
+                          .attr("version",'1.1');
+  window.mainApi.exportToSvg(project, svgContainer.node().outerHTML);
+}
+
 const render = async () => {
   d3.select('svg').selectAll('*').remove();
 
@@ -192,6 +199,10 @@ const byteLength = (str) => {
   str = (str == null) ? "" : str;
   return encodeURI(str).replace(/%../g, "*").length;
 };
+
+defineExpose({
+  exportToSvg
+});
 </script>
   
 <style scoped>

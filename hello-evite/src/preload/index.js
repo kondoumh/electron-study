@@ -1,4 +1,4 @@
-import { contextBridge } from 'electron'
+import { contextBridge, ipcRenderer } from 'electron'
 import { electronAPI } from '@electron-toolkit/preload'
 
 // Custom APIs for renderer
@@ -18,3 +18,9 @@ if (process.contextIsolated) {
   window.electron = electronAPI
   window.api = api
 }
+
+contextBridge.exposeInMainWorld(
+  'mainApi', {
+    exportToSvg: async (project, data) => await ipcRenderer.invoke('export-to-svg', project, data),
+  }
+);

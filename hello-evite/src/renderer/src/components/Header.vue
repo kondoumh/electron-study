@@ -6,15 +6,19 @@
       <option>comic-forum</option>
       <option>icons</option>
     </select>
+    <button @click="onExportToSvg">export to svg</button>
   </header>
 </template>
   
 <script setup>
 import { ref } from 'vue';
 const project = ref('help-jp');
-const emit = defineEmits(['projectChanged'])
+const emit = defineEmits(['projectChanged', 'exportToSvg']);
 const onChange = () => {
-  emit('projectChanged', project.value);
+  emit('project-changed', project.value);
+}
+const onExportToSvg = () => {
+  emit('export-svg');
 }
 </script>
   
@@ -34,6 +38,13 @@ h2 {
 }
 
 select {
+  position: fixed;
+  top: 0px;
+  right: 100px;
+  margin: 1em;
+}
+
+button {
   position: fixed;
   top: 0px;
   right: 0px;
