@@ -12,8 +12,10 @@
   
 <script setup>
 import { ref } from 'vue';
+
 const project = ref('help-jp');
-const emit = defineEmits(['projectChanged', 'exportToSvg']);
+const emit = defineEmits(['project-changed', 'export-svg']);
+
 const onChange = () => {
   emit('project-changed', project.value);
 }
