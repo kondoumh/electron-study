@@ -9,6 +9,6 @@
   "repository": "https://github.com/kondoumh/electron-study/browserview-sample",
   "author": "kondoumh",
   "devDependencies": {
-    "electron": "^22.3.21"
+    "electron": "^22.3.24"
   }
 }
