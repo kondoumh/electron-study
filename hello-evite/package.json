@@ -28,7 +28,7 @@
     "@vitejs/plugin-vue": "^4.1.0",
     "@vue/eslint-config-prettier": "^7.1.0",
     "electron": "^24.8.5",
-    "electron-builder": "^23.6.0",
+    "electron-builder": "^24.13.3",
     "electron-vite": "^1.0.22",
     "eslint": "^8.36.0",
     "eslint-plugin-vue": "^9.10.0",
