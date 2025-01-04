@@ -1,6 +1,10 @@
-const { app, BrowserWindow } = require('electron');
-const path = require('path');
-const contextMenu = require('electron-context-menu');
+import { app, BrowserWindow } from 'electron';
+import { fileURLToPath } from 'node:url';
+
+import path from 'node:path';
+import contextMenu from 'electron-context-menu';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 let mainWindow;
 

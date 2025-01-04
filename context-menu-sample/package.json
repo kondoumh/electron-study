@@ -2,16 +2,17 @@
   "name": "electron-quick-start",
   "version": "1.0.0",
   "description": "A minimal Electron application",
-  "main": "main.js",
+  "main": "main.mjs",
+  "type": "module",
   "scripts": {
     "start": "electron ."
   },
   "repository": "https://github.com/kondoumh/electron-study",
   "author": "kondoumh",
   "devDependencies": {
-    "electron": "^22.0.3"
+    "electron": "^33.2.1"
   },
   "dependencies": {
-    "electron-context-menu": "^3.6.1"
+    "electron-context-menu": "^4.0.4"
   }
 }
