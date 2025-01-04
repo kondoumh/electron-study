@@ -1,12 +1,18 @@
-import { app, BrowserWindow } from 'electron';
+import { app, BrowserWindow, Menu } from 'electron';
 import { fileURLToPath } from 'node:url';
-
 import path from 'node:path';
-import contextMenu from 'electron-context-menu';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 let mainWindow;
+
+function ContextParams(linkURL, linkText, selectionText) {
+  this.linkURL = linkURL;
+  this.linkText = linkText;
+  this.selectionText = selectionText;
+}
+
+const contextParams = new ContextParams('', '', '');
 
 function createWindow() {
   mainWindow = new BrowserWindow({
@@ -27,24 +33,43 @@ app.whenReady().then(() => {
   app.on('activate', function () {
     if (BrowserWindow.getAllWindows().length === 0) createWindow();
   })
-})
+
+  const contextMenu = Menu.buildFromTemplate([
+    {
+      label: 'menu1',
+      click: () => {
+        if (contextParams.linkURL) console.log('linkURL:', contextParams.linkURL);
+        if (contextParams.linkText) console.log('linkText:', contextParams.linkText);
+        if (contextParams.selectionText) console.log('selectionText:', contextParams.selectionText);
+        console.log('menu1 clicked');
+      }
+    },
+    {
+      label: 'menu2',
+      click: () => {
+        console.log('menu2 clicked');
+      }
+    },
+    { type: 'separator' },
+    {
+      label: 'Quit',
+      click: () => {
+        app.quit();
+      }
+    }
+  ]);
+
+  mainWindow.webContents.on('context-menu', (e, params) => {
+    updateContextParams(params);
+    contextMenu.popup(mainWindow, params.x, params.y);
+  });
+});
 
 app.on('window-all-closed', function () {
   if (process.platform !== 'darwin') app.quit();
 });
-
-contextMenu({
-  prepend: (defaultActions, parameters, mainWindow) => [
-    {
-      label: 'Rainbow',
-      visible: parameters.mediaType === 'image'
-    },
-    {
-      label: 'Search Google for “{selection}”',
-      visible: parameters.selectionText.trim().length > 0,
-      click: () => {
-        shell.openExternal(`https://google.com/search?q=${encodeURIComponent(parameters.selectionText)}`);
-      }
-    }
-  ]
-});
+function updateContextParams(params) {
+  contextParams.linkURL = params.linkURL;
+  contextParams.linkText = params.linkText;
+  contextParams.selectionText = params.selectionText;
+}
