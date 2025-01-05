@@ -6,14 +6,6 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 let mainWindow;
 
-function ContextParams(linkURL, linkText, selectionText) {
-  this.linkURL = linkURL;
-  this.linkText = linkText;
-  this.selectionText = selectionText;
-}
-
-const contextParams = new ContextParams('', '', '');
-
 function createWindow() {
   mainWindow = new BrowserWindow({
     width: 800,
@@ -34,14 +26,24 @@ app.whenReady().then(() => {
     if (BrowserWindow.getAllWindows().length === 0) createWindow();
   })
 
-  const contextMenu = Menu.buildFromTemplate([
+  mainWindow.webContents.on('context-menu', (e, params) => {
+    const contextMenu = Menu.buildFromTemplate(buildMenuTemplate(params));
+    contextMenu.popup({ window: mainWindow.webContents });
+  });
+});
+
+app.on('window-all-closed', function () {
+  if (process.platform !== 'darwin') app.quit();
+});
+
+function buildMenuTemplate(params) {
+  const menuTemplete = [
     {
       label: 'menu1',
       click: () => {
-        if (contextParams.linkURL) console.log('linkURL:', contextParams.linkURL);
-        if (contextParams.linkText) console.log('linkText:', contextParams.linkText);
-        if (contextParams.selectionText) console.log('selectionText:', contextParams.selectionText);
+        const { linkURL, linkText, selectionText } = params;
         console.log('menu1 clicked');
+        console.table({ linkURL, linkText, selectionText });
       }
     },
     {
@@ -57,19 +59,6 @@ app.whenReady().then(() => {
         app.quit();
       }
     }
-  ]);
-
-  mainWindow.webContents.on('context-menu', (e, params) => {
-    updateContextParams(params);
-    contextMenu.popup(mainWindow, params.x, params.y);
-  });
-});
-
-app.on('window-all-closed', function () {
-  if (process.platform !== 'darwin') app.quit();
-});
-function updateContextParams(params) {
-  contextParams.linkURL = params.linkURL;
-  contextParams.linkText = params.linkText;
-  contextParams.selectionText = params.selectionText;
+  ];
+  return menuTemplete;
 }
