@@ -1,4 +1,4 @@
-import { app, BrowserWindow, Menu } from 'electron';
+import { app, BrowserWindow, Menu, clipboard } from 'electron';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 
@@ -15,7 +15,6 @@ function createWindow() {
       spellcheck: true
     }
   });
-
   mainWindow.loadFile('index.html');
 }
 
@@ -39,26 +38,32 @@ app.on('window-all-closed', function () {
 function buildMenuTemplate(params) {
   const menuTemplete = [
     {
-      label: 'menu1',
+      label: 'Open link',
       click: () => {
         const { linkURL, linkText, selectionText } = params;
         console.log('menu1 clicked');
         console.table({ linkURL, linkText, selectionText });
-      }
+      },
+      visible: params.linkURL
     },
     {
-      label: 'menu2',
+      label: `Search Google for '${params.selectionText}'`,
       click: () => {
         console.log('menu2 clicked');
-      }
+      },
+      visible: params.selectionText.trim().length > 0
     },
     { type: 'separator' },
     {
-      label: 'Quit',
-      click: () => {
-        app.quit();
-      }
-    }
+      label: 'Copy image',
+      click: () => { content.copyImageAt(params.x, params.y); },
+      visible: params.mediaType === 'image'
+    },
+    {
+      label: 'Copy image URL',
+      click: () => { clipboard.writeText(params.srcURL); },
+      visible: params.mediaType === 'image'
+    },
   ];
   return menuTemplete;
 }
