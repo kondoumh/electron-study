@@ -1,0 +1,15 @@
+{
+  "name": "file-download-example",
+  "version": "1.0.0",
+  "description": "A minimal Electron application",
+  "main": "main.mjs",
+  "type": "module",
+  "scripts": {
+    "start": "electron ."
+  },
+  "repository": "https://github.com/kondoumh/electron-study",
+  "author": "kondoumh",
+  "devDependencies": {
+    "electron": "^35.0.3"
+  }
+}
