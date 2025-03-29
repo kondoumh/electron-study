@@ -15,3 +15,8 @@ function checkStatus() {
 
 checkStatus();
 setInterval(checkStatus, 10000); // Check every 10 seconds
+
+globalThis.addEventListener('message', (event) => {
+  console.log('Received message from renderer:', event.data);
+  myElectronApi.ai.notify(event.data);
+});
