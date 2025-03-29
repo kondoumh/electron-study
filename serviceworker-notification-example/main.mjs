@@ -32,21 +32,6 @@ app.whenReady().then( async () => {
     (event, { scope }) => {
       // Listen for extension service worker registration
       console.log('Service Worker registered:', scope);
-
-      // const running = session.defaultSession.serviceWorkers.getAllRunning();
-      // console.log('Running Service Workers:', running);
-
-      // Get ServiceWorkerMain instance from proposed API
-      // const sw = session.defaultSession.serviceWorkers.getWorkerFromVersionID(
-      //   scope
-      // );
-      // console.log('Service Worker instance:', sw);
-      // if (!sw) return;
-  
-      // Handle the IPC sent from the service worker preload realm.
-      // sw.ipc.handle("NOTIFY_TEXT", (event, text) => {
-      //   console.log('Received IPC from Service Worker:', text);
-      // });
     }
   );
 

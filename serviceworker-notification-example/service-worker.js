@@ -1,6 +1,6 @@
 function checkStatus() {
   //console.log('Checking status...');
-  fetch('https://jsonplaceholder.typicode.com/todos/1') // ← 仮のAPI
+  fetch('https://jsonplaceholder.typicode.com/todos/1') // Fake API for testing
     .then(res => res.json())
     .then(data => {
       //if (data && data.title !== lastStatus) {
@@ -13,6 +13,5 @@ function checkStatus() {
     .catch(err => console.error('[Service Worker] API error:', err));
 }
 
-// 起動時 + 以後10秒ごとにチェック
 checkStatus();
-setInterval(checkStatus, 10000);
+setInterval(checkStatus, 10000); // Check every 10 seconds

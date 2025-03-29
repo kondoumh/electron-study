@@ -10,16 +10,3 @@ window.addEventListener('DOMContentLoaded', () => {
     replaceText(`${type}-version`, process.versions[type]);
   }
 });
-
-contextBridge.exposeInMainWorld(
-  'electronApi', {
-    sendToServiceWorker: async (data) => {
-      if (navigator.serviceWorker && navigator.serviceWorker.controller) {
-        console.log('Sending data to Service Worker:', data);
-        navigator.serviceWorker.controller.postMessage(data);
-      } else {
-        console.error('Service Worker not ready');
-      }
-    }
-  }
-);
