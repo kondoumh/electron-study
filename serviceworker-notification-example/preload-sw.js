@@ -6,11 +6,9 @@ if (process.type == 'service-worker') {
 
 function exposeApi() {
   const api = {
-    ai: {
-      notify: (text) => {
-        console.log('Sending IPC to Main:', text);
-        ipcRenderer.invoke("NOTIFY_TEXT", text);
-      },
+    notify: (text) => {
+      console.log('Sending IPC to Main:', text);
+      ipcRenderer.invoke("NOTIFY_TEXT", text);
     },
   };
 
