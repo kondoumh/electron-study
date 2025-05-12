@@ -27,7 +27,6 @@ app.whenReady().then(() => {
 
   mainWindow.webContents.on('context-menu', (e, params) => {
     const focusedFrame = mainWindow.webContents.focusedFrame;
-    console.log('focusedFrame', focusedFrame);
     const menuTemplate = buildMenuTemplate(params);
     const visibleItems = menuTemplate.filter(item => item.visible);
     const contextMenu = Menu.buildFromTemplate(visibleItems);
@@ -52,6 +51,14 @@ function buildMenuTemplate(params) {
         console.table({ linkURL, linkText, selectionText });
       },
       visible: params.linkURL
+    },
+    {
+      label: 'Copy',
+      click: () => {
+        const { selectionText } = params;
+        clipboard.writeText(selectionText);
+      },
+      visible: params.selectionText.trim().length > 0
     },
     {
       label: `Search Google for '${params.selectionText}'`,
