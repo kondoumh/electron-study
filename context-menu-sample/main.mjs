@@ -26,8 +26,13 @@ app.whenReady().then(() => {
   })
 
   mainWindow.webContents.on('context-menu', (e, params) => {
-    const contextMenu = Menu.buildFromTemplate(buildMenuTemplate(params));
-    contextMenu.popup({ window: mainWindow.webContents });
+    const focusedFrame = mainWindow.webContents.focusedFrame;
+    console.log('focusedFrame', focusedFrame);
+    const contextMenu = Menu.buildFromTemplate([{ label: 'Copy', role: 'copy' }]/* buildMenuTemplate(params)*/);
+    contextMenu.popup({
+      window: mainWindow.webContents,
+      frame: focusedFrame,
+    });
   });
 });
 
