@@ -54,10 +54,7 @@ function buildMenuTemplate(params) {
     },
     {
       label: 'Copy',
-      click: () => {
-        const { selectionText } = params;
-        clipboard.writeText(selectionText);
-      },
+      role: 'copy',
       visible: params.selectionText.trim().length > 0
     },
     {
