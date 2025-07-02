@@ -23,7 +23,7 @@
     "@wdio/mocha-framework": "^8.2.3",
     "@wdio/spec-reporter": "^8.1.2",
     "chromedriver": "^119.0.1",
-    "electron": "^22.0.3",
+    "electron": "^28.3.2",
     "wdio-chromedriver-service": "^8.0.1"
   }
 }
