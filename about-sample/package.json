@@ -9,7 +9,7 @@
   "repository": "https://github.com/kondoumh/electron-study",
   "author": "kondoumh",
   "devDependencies": {
-    "electron": "^28.3.2"
+    "electron": "^35.7.5"
   },
   "dependencies": {
     "about-window": "^1.15.2"
