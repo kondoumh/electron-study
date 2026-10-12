@@ -20,7 +20,7 @@
   "devDependencies": {
     "@wdio/cli": "^9.0.9",
     "@wdio/local-runner": "^9.0.9",
-    "@wdio/mocha-framework": "^8.2.3",
+    "@wdio/mocha-framework": "^10.0.1",
     "@wdio/spec-reporter": "^8.1.2",
     "chromedriver": "^119.0.1",
     "electron": "^41.10.6",
